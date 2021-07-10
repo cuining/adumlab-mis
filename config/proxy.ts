@@ -8,22 +8,22 @@
  */
 export default {
   dev: {
-    '/api/': {
-      target: 'https://preview.pro.ant.design',
+    '/manager/': {
+      target: 'http://123.56.134.170/',
       changeOrigin: true,
       pathRewrite: { '^': '' },
     },
   },
   test: {
-    '/api/': {
-      target: 'https://preview.pro.ant.design',
+    '/manager/': {
+      target: 'http://123.56.134.170/',
       changeOrigin: true,
       pathRewrite: { '^': '' },
     },
   },
   pre: {
-    '/api/': {
-      target: 'your pre url',
+    '/manager/': {
+      target: 'http://123.56.134.170/',
       changeOrigin: true,
       pathRewrite: { '^': '' },
     },

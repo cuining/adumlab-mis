@@ -1,16 +1,20 @@
 import request from '@/utils/request';
 
 export type LoginParamsType = {
-  userName: string;
+  username: string;
   password: string;
-  mobile: string;
-  captcha: string;
 };
 
-export async function fakeAccountLogin(params: LoginParamsType) {
-  return request('/api/login/account', {
+export async function accountLogin(params: LoginParamsType) {
+  return request('/manager/user/login', {
     method: 'POST',
     data: params,
+  }).then((response) => {
+    return {
+      status: response.code === 1 ? 'ok' : 'error',
+      currentAuthority: response.data.id === 1 ? 'admin' : '',
+      ...response
+    }
   });
 }
 

@@ -56,11 +56,11 @@ const menuDataRender = (menuList: MenuDataItem[]): MenuDataItem[] =>
 
 const defaultFooterDom = (
   <DefaultFooter
-    copyright={`${new Date().getFullYear()} Produced by Ant Group Experience Technology Department`}
+    copyright={`${new Date().getFullYear()} Produced by AWP Department`}
     links={[
       {
-        key: 'Ant Design Pro',
-        title: 'Ant Design Pro',
+        key: 'Balmuda',
+        title: 'Balmuda',
         href: 'https://pro.ant.design',
         blankTarget: true,
       },
@@ -166,7 +166,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
         return menuData || [];
       }}
       waterMarkProps={{
-        content: 'Ant Design Pro',
+        content: 'Balmuda',
         fontColor: 'rgba(24,144,255,0.15)',
       }}
     >

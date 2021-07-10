@@ -1,16 +1,8 @@
 import React from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
+import { HeartTwoTone, SmileTwoTone } from '@ant-design/icons';
 import { Card, Alert, Typography } from 'antd';
-import { useIntl, FormattedMessage } from 'umi';
-import styles from './Welcome.less';
-
-const CodePreview: React.FC = ({ children }) => (
-  <pre className={styles.pre}>
-    <code>
-      <Typography.Text copyable>{children}</Typography.Text>
-    </code>
-  </pre>
-);
+import { useIntl } from 'umi';
 
 export default (): React.ReactNode => {
   const intl = useIntl();
@@ -30,33 +22,9 @@ export default (): React.ReactNode => {
             marginBottom: 24,
           }}
         />
-        <Typography.Text strong>
-          <FormattedMessage id="pages.welcome.advancedComponent" defaultMessage="Advanced Form" />{' '}
-          <a
-            href="https://procomponents.ant.design/components/table"
-            rel="noopener noreferrer"
-            target="__blank"
-          >
-            <FormattedMessage id="pages.welcome.link" defaultMessage="Welcome" />
-          </a>
-        </Typography.Text>
-        <CodePreview>yarn add @ant-design/pro-table</CodePreview>
-        <Typography.Text
-          strong
-          style={{
-            marginBottom: 12,
-          }}
-        >
-          <FormattedMessage id="pages.welcome.advancedLayout" defaultMessage="Advanced layout" />{' '}
-          <a
-            href="https://procomponents.ant.design/components/layout"
-            rel="noopener noreferrer"
-            target="__blank"
-          >
-            <FormattedMessage id="pages.welcome.link" defaultMessage="Welcome" />
-          </a>
-        </Typography.Text>
-        <CodePreview>yarn add @ant-design/pro-layout</CodePreview>
+        <Typography.Title level={2} style={{ textAlign: 'center', margin: '96px 0' }}>
+          <SmileTwoTone /> Balmuda <HeartTwoTone twoToneColor="#eb2f96" /> You
+        </Typography.Title>
       </Card>
     </PageContainer>
   );

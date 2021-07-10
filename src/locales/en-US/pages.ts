@@ -24,11 +24,11 @@ export default {
   'pages.welcome.advancedComponent': 'Advanced Component',
   'pages.welcome.link': 'Welcome',
   'pages.welcome.advancedLayout': 'Advanced Layout',
-  'pages.welcome.alertMessage': 'Faster and stronger heavy-duty components have been released.',
+  'pages.welcome.alertMessage': 'A nice day begins.',
   'pages.admin.subPage.title': 'This page can only be viewed by Admin',
   'pages.admin.subPage.alertMessage':
     'Umi ui is now released, welcome to use npm run ui to start the experience.',
-  'pages.searchTable.createForm.newRule': 'New Rule',
+  'pages.searchTable.createForm.newAccount': 'New Account',
   'pages.searchTable.updateForm.ruleConfig': 'Rule configuration',
   'pages.searchTable.updateForm.basicConfig': 'Basic Information',
   'pages.searchTable.updateForm.ruleName.nameLabel': 'Rule Name',
@@ -65,4 +65,14 @@ export default {
   'pages.searchTable.tenThousand': '0000',
   'pages.searchTable.batchDeletion': 'bacth deletion',
   'pages.searchTable.batchApproval': 'batch approval',
+
+  'pages.searchTable.index': 'Index',
+  'pages.searchTable.username': 'Username',
+  'pages.searchTable.createAt': 'Create time',
+
+  'pages.searchTable.article-title': '标题',
+  'pages.searchTable.article-content': '内容',
+  'pages.searchTable.article-type': '类型',
+  'pages.searchTable.article-publishAt': '发布时间',
+  'pages.searchTable.article-updateAt': '更新时间',
 };

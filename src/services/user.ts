@@ -5,7 +5,12 @@ export async function query(): Promise<any> {
 }
 
 export async function queryCurrent(): Promise<any> {
-  return request('/api/currentUser');
+  const currentUid = localStorage.getItem('bmd-uid')
+  return request(`/manager/user/${currentUid}`).then(response => {
+    response.data.avatar = 'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png'
+    response.data.name = response.data.username
+    return response
+  })
 }
 
 export async function queryNotices(): Promise<any> {
