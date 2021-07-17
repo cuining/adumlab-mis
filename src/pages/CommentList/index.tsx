@@ -8,6 +8,7 @@ import ProTable from '@ant-design/pro-table';
 import OperationModal from './components/OperationModal';
 import type { TableListItem } from './data';
 import { queryRule, updateRule, addRule, removeRule } from './service';
+import { category } from '../../constants';
 
 /**
  * @en-US Add node
@@ -98,7 +99,7 @@ const TableList: React.FC = () => {
       title: <FormattedMessage id="pages.searchTable.article-type" defaultMessage="Article type" />,
       dataIndex: 'category',
       hideInForm: true,
-      valueEnum: { 0: 'Toaster', 2: '通知' },
+      valueEnum: category,
     },
     {
       title: '发布连接',

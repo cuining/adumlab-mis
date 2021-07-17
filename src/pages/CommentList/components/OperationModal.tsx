@@ -1,8 +1,11 @@
-import type { FC} from 'react';
+import type { FC } from 'react';
 import { useEffect } from 'react';
 import moment from 'moment';
 import { Modal, Result, Button, Form, Input, Radio, DatePicker } from 'antd';
 import styles from '../style.less';
+import { category } from '../../../constants';
+
+const options = Object.keys(category).map((c) => ({ label: category[c], value: parseInt(c, 10) }));
 
 interface OperationModalProps {
   done: boolean;
@@ -97,16 +100,8 @@ const OperationModal: FC<OperationModalProps> = (props) => {
             style={{ width: '100%' }}
           />
         </Form.Item>
-        <Form.Item
-          name="category"
-          label="类型"
-          initialValue={0}
-        >
-          <Radio.Group
-            options={[{label: 'Toaster',value: 0}, {label: '通知', value: 2}]}
-            optionType="button"
-            buttonStyle="solid"
-          />
+        <Form.Item name="category" label="类型" initialValue={0}>
+          <Radio.Group options={options} optionType="button" buttonStyle="solid" />
         </Form.Item>
         <Form.Item
           name="content"

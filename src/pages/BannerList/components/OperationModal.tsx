@@ -2,9 +2,11 @@ import type { FC } from 'react';
 import { useEffect } from 'react';
 import { Modal, Result, Button, Form, InputNumber, Radio, Upload } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
+import { category } from '../../../constants';
 
 import styles from '../style.less';
 
+const options = Object.keys(category).map((c) => ({ label: category[c], value: parseInt(c, 10) }));
 interface OperationModalProps {
   done: boolean;
   visible: boolean;
@@ -73,17 +75,11 @@ const OperationModal: FC<OperationModalProps> = (props) => {
         />
       );
     }
+
     return (
       <Form {...formLayout} form={form} onFinish={handleFinish}>
         <Form.Item name="category" label="产品类型" initialValue={0}>
-          <Radio.Group
-            options={[
-              { label: 'Toaster', value: 0 },
-              { label: '通知', value: 2 },
-            ]}
-            optionType="button"
-            buttonStyle="solid"
-          />
+          <Radio.Group options={options} optionType="button" buttonStyle="solid" />
         </Form.Item>
         <Form.Item name="type" label="资源类型" initialValue={1}>
           <Radio.Group
@@ -95,15 +91,11 @@ const OperationModal: FC<OperationModalProps> = (props) => {
             buttonStyle="solid"
           />
         </Form.Item>
-        <Form.Item
-          name="order_num"
-          label="顺序"
-          initialValue={0}
-        >
+        <Form.Item name="order_num" label="顺序" initialValue={0}>
           <InputNumber placeholder="请输入" />
         </Form.Item>
         <Form.Item name="path" label="Banner" valuePropName="path" getValueFromEvent={normFile}>
-          <Upload name="file" action="/manager/file" listType="picture" maxCount={1} >
+          <Upload name="file" action="/manager/file" listType="picture" maxCount={1}>
             <Button icon={<UploadOutlined />}>Click to upload</Button>
           </Upload>
         </Form.Item>
