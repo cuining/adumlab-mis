@@ -38,6 +38,8 @@ export default {
   'menu.list.card-list': '卡片列表',
   'menu.list.search-list': '搜索列表',
   'menu.list.article-list': '文章列表',
+  'menu.list.comment-list': '评测列表',
+  'menu.list.banner-list': '轮播列表',
   'menu.list.search-list.projects': '搜索列表（项目）',
   'menu.list.search-list.applications': '搜索列表（应用）',
   'menu.profile': '详情页',

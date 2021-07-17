@@ -1,7 +1,7 @@
 import type { FC} from 'react';
 import { useEffect } from 'react';
 import moment from 'moment';
-import { Modal, Result, Button, Form, Input, Radio } from 'antd';
+import { Modal, Result, Button, Form, Input, Radio, DatePicker } from 'antd';
 import styles from '../style.less';
 
 interface OperationModalProps {
@@ -33,7 +33,7 @@ const OperationModal: FC<OperationModalProps> = (props) => {
     if (current) {
       form.setFieldsValue({
         ...current,
-        createdAt: current.createdAt ? moment(current.createdAt) : null,
+        publish_at: current.publish_at ? moment(current.publish_at) : null,
       });
     }
   }, [props.current]);
@@ -45,7 +45,7 @@ const OperationModal: FC<OperationModalProps> = (props) => {
 
   const handleFinish = (values: Record<string, any>) => {
     if (onSubmit) {
-      values.publish_at = new Date().toLocaleDateString('zh');
+      values.publish_at = new Date().toLocaleDateString('zh').replace(/\//g, '-');
       onSubmit(values as any);
     }
   };
@@ -72,16 +72,23 @@ const OperationModal: FC<OperationModalProps> = (props) => {
     return (
       <Form {...formLayout} form={form} onFinish={handleFinish}>
         <Form.Item
-          name="title"
-          label="标题"
-          rules={[{ required: true, message: '请输入标题' }]}
+          name="source"
+          label="发布者"
+          rules={[{ required: true, message: '请输入发布者' }]}
         >
           <Input placeholder="请输入" />
         </Form.Item>
-        {/* <Form.Item
+        <Form.Item
+          name="source_url"
+          label="发布链接"
+          rules={[{ required: true, message: '请输入发布链接' }]}
+        >
+          <Input placeholder="请输入" />
+        </Form.Item>
+        <Form.Item
           name="publish_at"
-          label="开始时间"
-          rules={[{ required: true, message: '请选择开始时间' }]}
+          label="发布时间"
+          rules={[{ required: true, message: '请选择发布时间' }]}
         >
           <DatePicker
             showTime
@@ -89,14 +96,14 @@ const OperationModal: FC<OperationModalProps> = (props) => {
             format="YYYY-MM-DD HH:mm:ss"
             style={{ width: '100%' }}
           />
-        </Form.Item> */}
+        </Form.Item>
         <Form.Item
-          name="type"
+          name="category"
           label="类型"
-          initialValue={1}
+          initialValue={0}
         >
           <Radio.Group
-            options={[{label: '新闻',value: 1}, {label: '通知', value: 2}]}
+            options={[{label: 'Toaster',value: 0}, {label: '通知', value: 2}]}
             optionType="button"
             buttonStyle="solid"
           />
@@ -114,7 +121,7 @@ const OperationModal: FC<OperationModalProps> = (props) => {
 
   return (
     <Modal
-      title={done ? null : `文章${current ? '编辑' : '添加'}`}
+      title={done ? null : `${current ? '编辑' : '添加'}`}
       className={styles.standardListForm}
       width={640}
       bodyStyle={done ? { padding: '72px 0' } : { padding: '28px 0 0' }}

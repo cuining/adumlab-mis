@@ -122,6 +122,18 @@
                 component: './ArticleList',
               },
               {
+                name: 'list.comment-list',
+                icon: 'table',
+                path: '/comment-list',
+                component: './CommentList',
+              },
+              {
+                name: 'list.banner-list',
+                icon: 'table',
+                path: '/banner-list',
+                component: './BannerList',
+              },
+              {
                 component: './404',
               }
             ],
