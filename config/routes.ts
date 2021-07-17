@@ -42,7 +42,7 @@
                     path: '/product/cleaner',
                     icon: 'smile',
                     name: 'cleaner',
-                    component: './Product/cleaner'
+                    component: './Product/Cleaner'
                   },
                   {
                     path: '/product/green-fan',
