@@ -1,7 +1,8 @@
-import type { FC} from 'react';
+import type { FC } from 'react';
 import { useEffect } from 'react';
-import moment from 'moment';
-import { Modal, Result, Button, Form, Input, Radio } from 'antd';
+import { Modal, Result, Button, Form, InputNumber, Input, Radio, Upload } from 'antd';
+import { UploadOutlined } from '@ant-design/icons';
+
 import styles from '../style.less';
 
 interface OperationModalProps {
@@ -13,7 +14,6 @@ interface OperationModalProps {
   onCancel: () => void;
 }
 
-const { TextArea } = Input;
 const formLayout = {
   labelCol: { span: 7 },
   wrapperCol: { span: 13 },
@@ -31,10 +31,7 @@ const OperationModal: FC<OperationModalProps> = (props) => {
 
   useEffect(() => {
     if (current) {
-      form.setFieldsValue({
-        ...current,
-        createdAt: current.createdAt ? moment(current.createdAt) : null,
-      });
+      form.setFieldsValue(current);
     }
   }, [props.current]);
 
@@ -45,9 +42,16 @@ const OperationModal: FC<OperationModalProps> = (props) => {
 
   const handleFinish = (values: Record<string, any>) => {
     if (onSubmit) {
-      values.publish_at = new Date().toLocaleDateString('zh');
       onSubmit(values as any);
     }
+  };
+
+  const normFile = (e: any) => {
+    console.log('Upload event:', e);
+    if (Array.isArray(e)) {
+      return e;
+    }
+    return e && e.fileList[0]?.response?.data?.oss_path;
   };
 
   const modalFooter = done
@@ -69,50 +73,47 @@ const OperationModal: FC<OperationModalProps> = (props) => {
         />
       );
     }
+
     return (
       <Form {...formLayout} form={form} onFinish={handleFinish}>
-        <Form.Item
+         <Form.Item
           name="title"
           label="标题"
           rules={[{ required: true, message: '请输入标题' }]}
         >
           <Input placeholder="请输入" />
         </Form.Item>
-        {/* <Form.Item
-          name="publish_at"
-          label="开始时间"
-          rules={[{ required: true, message: '请选择开始时间' }]}
-        >
-          <DatePicker
-            showTime
-            placeholder="请选择"
-            format="YYYY-MM-DD HH:mm:ss"
-            style={{ width: '100%' }}
-          />
-        </Form.Item> */}
         <Form.Item
-          name="type"
-          label="类型"
-          initialValue={1}
+          name="description"
+          label="描述"
+          rules={[{ required: true, message: '请输入描述' }]}
         >
+          <Input placeholder="请输入描述" />
+        </Form.Item>
+        <Form.Item name="category" label="产品类型" initialValue={1}>
           <Radio.Group
-            options={[{label: '新闻',value: 1}, {label: '通知', value: 2}]}
+            options={[
+              { label: '人气产品', value: 1 },
+              { label: '人气产品下方九宫格', value: 2 },
+            ]}
             optionType="button"
             buttonStyle="solid"
           />
         </Form.Item>
-        <Form.Item
-          name="redirect_url"
-          label="外部链接"
-        >
-          <Input placeholder="https://..." />
+        <Form.Item name="order_num" label="顺序" initialValue={0}>
+          <InputNumber placeholder="请输入" />
         </Form.Item>
         <Form.Item
-          name="content"
-          label="内容"
-          rules={[{ message: '请输入内容，不少于10个字', min: 10 }]}
+          name="url"
+          label="内部链接"
+          rules={[{ required: true, message: '请输入内部链接，以 / 开头' }]}
         >
-          <TextArea rows={4} placeholder="请输入至少十个字符" />
+          <Input placeholder="/toaster" />
+        </Form.Item>
+        <Form.Item name="path" label="Banner" valuePropName="path" getValueFromEvent={normFile}>
+          <Upload name="file" action="/manager/file" listType="picture" maxCount={1}>
+            <Button icon={<UploadOutlined />}>Click to upload</Button>
+          </Upload>
         </Form.Item>
       </Form>
     );
@@ -120,7 +121,7 @@ const OperationModal: FC<OperationModalProps> = (props) => {
 
   return (
     <Modal
-      title={done ? null : `文章${current ? '编辑' : '添加'}`}
+      title={done ? null : `${current ? '编辑' : '添加'}`}
       className={styles.standardListForm}
       width={640}
       bodyStyle={done ? { padding: '72px 0' } : { padding: '28px 0 0' }}

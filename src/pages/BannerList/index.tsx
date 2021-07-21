@@ -86,6 +86,7 @@ const TableList: React.FC = () => {
     {
       title: '图片',
       dataIndex: 'path',
+      hideInSearch: true,
       render: (value) => <img src={value as string} alt="" width="100" />,
     },
     {

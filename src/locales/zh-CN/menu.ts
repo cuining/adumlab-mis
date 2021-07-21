@@ -5,6 +5,7 @@ export default {
   'menu.system': '系统管理',
   'menu.system.account': '账号管理',
   'menu.product': '产品管理',
+  'menu.product-recommend': '首页推荐',
   'menu.product.cleaner': 'Cleaner',
   'menu.product.green-fan': 'GreenFan',
   'menu.product.green-fan-cirq': 'GreenFan Cirq',
