@@ -48,6 +48,7 @@ const errorHandler = (error: { response: Response }): Response => {
  * @zh-CN 配置request请求时的默认参数
  */
 const request = extend({
+  prefix: 'http://123.56.134.170',
   errorHandler, // default error handling
   credentials: 'include', // Does the default request bring cookies
 });
