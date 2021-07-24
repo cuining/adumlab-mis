@@ -2,13 +2,13 @@ import request from '@/utils/request';
 import type { TableListParams, TableListItem } from './data';
 
 export async function queryRule(params?: TableListParams) {
-  return request('manager/banner', {
+  return request('/manager/banner', {
     params,
   }).then(res => res.data);
 }
 
 export async function removeRule(params: { id: number[] }) {
-  return request(`manager/banner/${params.id}`, {
+  return request(`/manager/banner/${params.id}`, {
     method: 'POST',
     data: {
       ...params,
@@ -18,7 +18,7 @@ export async function removeRule(params: { id: number[] }) {
 }
 
 export async function addRule(params: TableListItem) {
-  return request('manager/banner', {
+  return request('/manager/banner', {
     method: 'POST',
     data: {
       ...params,
@@ -28,7 +28,7 @@ export async function addRule(params: TableListItem) {
 }
 
 export async function updateRule(params: TableListParams) {
-  return request(`manager/banner/${params.id}`, {
+  return request(`/manager/banner/${params.id}`, {
     method: 'POST',
     data: {
       ...params,
