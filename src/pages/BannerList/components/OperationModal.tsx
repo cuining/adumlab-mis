@@ -96,8 +96,9 @@ const OperationModal: FC<OperationModalProps> = (props) => {
         </Form.Item>
         <Form.Item name="path" label="Banner" valuePropName="path" getValueFromEvent={normFile}>
           <Upload name="file" action="/manager/file" listType="picture" maxCount={1}>
-            <Button icon={<UploadOutlined />}>Click to upload</Button>
+            <Button icon={<UploadOutlined />}>上传图片</Button>
           </Upload>
+          202*108，图片最大1Mb
         </Form.Item>
       </Form>
     );

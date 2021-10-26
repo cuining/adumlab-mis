@@ -3,16 +3,11 @@
  *
  * @see You can view component api by: https://github.com/ant-design/ant-design-pro-layout
  */
-import type {
-  MenuDataItem,
-  BasicLayoutProps as ProLayoutProps,
-  Settings,
-} from '@ant-design/pro-layout';
-import ProLayout, { DefaultFooter } from '@ant-design/pro-layout';
+import type { BasicLayoutProps as ProLayoutProps, Settings } from '@ant-design/pro-layout';
+import ProLayout from '@ant-design/pro-layout';
 import React, { useEffect, useMemo, useRef } from 'react';
 import type { Dispatch } from 'umi';
 import { Link, useIntl, connect, history } from 'umi';
-import { GithubOutlined } from '@ant-design/icons';
 import { Result, Button } from 'antd';
 import Authorized from '@/utils/Authorized';
 import RightContent from '@/components/GlobalHeader/RightContent';
@@ -54,31 +49,7 @@ const menuDataRender = (menuList: MenuDataItem[]): MenuDataItem[] =>
     return Authorized.check(item.authority, localItem, null) as MenuDataItem;
   });
 
-const defaultFooterDom = (
-  <DefaultFooter
-    copyright={`${new Date().getFullYear()} Produced by AWP Department`}
-    links={[
-      {
-        key: 'Balmuda',
-        title: 'Balmuda',
-        href: 'https://pro.ant.design',
-        blankTarget: true,
-      },
-      {
-        key: 'github',
-        title: <GithubOutlined />,
-        href: 'https://github.com/ant-design/ant-design-pro',
-        blankTarget: true,
-      },
-      {
-        key: 'Ant Design',
-        title: 'Ant Design',
-        href: 'https://ant.design',
-        blankTarget: true,
-      },
-    ]}
-  />
-);
+const defaultFooterDom = null;
 
 const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
   const {

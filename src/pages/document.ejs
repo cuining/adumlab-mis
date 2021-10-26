@@ -179,6 +179,12 @@
             transform: rotate(405deg);
           }
         }
+        .bg-black { 
+          background-color: black;
+        }
+        .p-4 {
+          padding: 16px;
+        }
       </style>
       <div
         style="
@@ -190,7 +196,9 @@
           min-height: 420px;
         "
       >
-        <img src="<%= context.config.publicPath +'pro_icon.svg'%>" alt="logo" width="256" />
+        <div class="bg-black p-4">
+          <img src="https://www.balmuda.com/_theme/img/svg/balmuda_fff.min.svgz" alt="logo" width="256" />
+        </div>
         <div class="page-loading-warp">
           <div class="ant-spin ant-spin-lg ant-spin-spinning">
             <span class="ant-spin-dot ant-spin-dot-spin"
@@ -200,12 +208,7 @@
           </div>
         </div>
         <div style="display: flex; align-items: center; justify-content: center">
-          <img
-            src="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg"
-            width="32"
-            style="margin-right: 8px"
-          />
-          Ant Design
+          星龙达科贸(北京)有限公司
         </div>
       </div>
     </div>
