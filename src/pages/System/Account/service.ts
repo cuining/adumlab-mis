@@ -7,8 +7,8 @@ export async function queryRule(params?: TableListParams) {
   });
 }
 
-export async function removeRule(params: { key: number[] }) {
-  return request('/api/rule', {
+export async function removeRule(params: { id: number }) {
+  return request(`/manager/user/${params.id}`, {
     method: 'POST',
     data: {
       ...params,

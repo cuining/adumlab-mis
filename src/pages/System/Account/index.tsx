@@ -3,12 +3,12 @@ import { Button, message } from 'antd';
 import React, { useState, useRef } from 'react';
 import { useIntl, FormattedMessage } from 'umi';
 import { PageContainer } from '@ant-design/pro-layout';
-import type { ProColumns, ActionType } from '@ant-design/pro-table';
+import type { ActionType } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
 import { ModalForm, ProFormText, ProFormField } from '@ant-design/pro-form';
 
 import type { TableListItem } from './data.d';
-import { queryRule, updateRule, addRule, removeRule } from './service';
+import { queryRule, addRule, removeRule } from './service';
 
 /**
  * @en-US Add node
@@ -38,31 +38,6 @@ const handleAdd = async (fields: TableListItem) => {
 };
 
 /**
- * @en-US Update node
- * @zh-CN 更新节点
- *
- * @param fields
- */
-const handleUpdate = async (fields: any) => {
-  const hide = message.loading('Configuring');
-  try {
-    await updateRule({
-      name: fields.name,
-      desc: fields.desc,
-      key: fields.key,
-    });
-    hide();
-
-    message.success('Configuration is successful');
-    return true;
-  } catch (error) {
-    hide();
-    message.error('Configuration failed, please try again!');
-    return false;
-  }
-};
-
-/**
  *  Delete node
  * @zh-CN 删除节点
  *
@@ -73,7 +48,7 @@ const handleRemove = async (selectedRows: TableListItem[]) => {
   if (!selectedRows) return true;
   try {
     await removeRule({
-      key: selectedRows.map((row) => row.key),
+      id: selectedRows.map((row) => row.id),
     });
     hide();
     message.success('Deleted successfully and will refresh soon');
@@ -95,13 +70,8 @@ const TableList: React.FC = () => {
    * @en-US The pop-up window of the distribution update window
    * @zh-CN 分布更新窗口的弹窗
    * */
-  const [updateModalVisible, handleUpdateModalVisible] = useState<boolean>(false);
-
-  const [showDetail, setShowDetail] = useState<boolean>(false);
 
   const actionRef = useRef<ActionType>();
-  const [currentRow, setCurrentRow] = useState<TableListItem>();
-  const [selectedRowsState, setSelectedRows] = useState<TableListItem[]>([]);
 
   /**
    * @en-US International configuration
@@ -133,6 +103,22 @@ const TableList: React.FC = () => {
       dataIndex: 'updated_at',
       hideInSearch: true,
     },
+    {
+      title: <FormattedMessage id="pages.searchTable.titleOption" defaultMessage="Operating" />,
+      dataIndex: 'option',
+      valueType: 'option',
+      render: (_, record) => (
+        <a
+          key="delete"
+          onClick={async () => {
+            await handleRemove([record]);
+            actionRef.current?.reloadAndRest?.();
+          }}
+        >
+          <FormattedMessage id="pages.searchTable.delete" defaultMessage="Delete" />
+        </a>
+      ),
+    },
   ];
 
   return (
@@ -143,7 +129,7 @@ const TableList: React.FC = () => {
           defaultMessage: 'Enquiry form',
         })}
         actionRef={actionRef}
-        rowKey="key"
+        rowKey="id"
         search={{
           labelWidth: 120,
         }}
