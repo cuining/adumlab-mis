@@ -2,8 +2,8 @@ import { PlusOutlined } from '@ant-design/icons';
 import { Button, message, Input } from 'antd';
 import React, { useState, useRef } from 'react';
 import { useIntl, FormattedMessage } from 'umi';
-import { PageContainer, FooterToolbar } from '@ant-design/pro-layout';
-import type { ProColumns, ActionType } from '@ant-design/pro-table';
+import { PageContainer } from '@ant-design/pro-layout';
+import type { ActionType } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
 import OperationModal from './components/OperationModal';
 import type { TableListItem } from './data.d';
@@ -51,7 +51,6 @@ const TableList: React.FC = () => {
   const [visible, setVisible] = useState<boolean>(false);
   const actionRef = useRef<ActionType>();
   const [currentRow, setCurrentRow] = useState<TableListItem>();
-  const [selectedRowsState, setSelectedRows] = useState<TableListItem[]>([]);
 
   const handleDone = () => {
     setDone(false);
@@ -84,6 +83,10 @@ const TableList: React.FC = () => {
 
   const columns: ProColumns<TableListItem>[] = [
     {
+      title: 'ID',
+      dataIndex: 'id',
+    },
+    {
       title: (
         <FormattedMessage id="pages.searchTable.article-title" defaultMessage="Article title" />
       ),
@@ -94,12 +97,12 @@ const TableList: React.FC = () => {
         <FormattedMessage id="pages.searchTable.article-content" defaultMessage="Article content" />
       ),
       dataIndex: 'content',
+      hideInSearch: true,
       valueType: 'textarea',
     },
     {
       title: <FormattedMessage id="pages.searchTable.article-type" defaultMessage="Article type" />,
       dataIndex: 'type',
-      hideInForm: true,
       valueEnum: { 1: '新闻', 2: '通知' },
     },
     {
@@ -110,7 +113,7 @@ const TableList: React.FC = () => {
         />
       ),
       dataIndex: 'publish_at',
-      hideInForm: true,
+      hideInSearch: true,
     },
     {
       title: (
@@ -122,6 +125,7 @@ const TableList: React.FC = () => {
       sorter: true,
       dataIndex: 'updated_at',
       valueType: 'dateTime',
+      hideInSearch: true,
       renderFormItem: (item, { defaultRender, ...rest }, form) => {
         const status = form.getFieldValue('status');
         if (`${status}` === '0') {
@@ -172,13 +176,14 @@ const TableList: React.FC = () => {
     <PageContainer>
       <ProTable<TableListItem>
         headerTitle={intl.formatMessage({
-          id: 'pages.searchTable.title',
+          id: 'pages.sea`rchTable.title',
           defaultMessage: 'Enquiry form',
         })}
         actionRef={actionRef}
         rowKey="id"
         search={{
           labelWidth: 120,
+          defaultCollapsed: false,
         }}
         toolBarRender={() => [
           <Button
@@ -194,36 +199,8 @@ const TableList: React.FC = () => {
         ]}
         request={(params, sorter, filter) => queryRule({ ...params, sorter, filter })}
         columns={columns}
-        rowSelection={{
-          onChange: (_, selectedRows) => {
-            setSelectedRows(selectedRows);
-          },
-        }}
       />
-      {selectedRowsState?.length > 0 && (
-        <FooterToolbar
-          extra={
-            <div>
-              <FormattedMessage id="pages.searchTable.chosen" defaultMessage="Chosen" />{' '}
-              <a style={{ fontWeight: 600 }}>{selectedRowsState.length}</a>{' '}
-              <FormattedMessage id="pages.searchTable.item" defaultMessage="项" />
-            </div>
-          }
-        >
-          <Button
-            onClick={async () => {
-              await handleRemove(selectedRowsState);
-              setSelectedRows([]);
-              actionRef.current?.reloadAndRest?.();
-            }}
-          >
-            <FormattedMessage
-              id="pages.searchTable.batchDeletion"
-              defaultMessage="Batch deletion"
-            />
-          </Button>
-        </FooterToolbar>
-      )}
+
       <OperationModal
         done={done}
         current={currentRow}

@@ -1,9 +1,9 @@
 import { PlusOutlined } from '@ant-design/icons';
-import { Button, message, Input } from 'antd';
+import { Button, message } from 'antd';
 import React, { useState, useRef } from 'react';
 import { useIntl, FormattedMessage } from 'umi';
-import { PageContainer, FooterToolbar } from '@ant-design/pro-layout';
-import type { ProColumns, ActionType } from '@ant-design/pro-table';
+import { PageContainer } from '@ant-design/pro-layout';
+import type { ActionType } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
 import OperationModal from './components/OperationModal';
 import type { TableListItem } from './data';
@@ -52,7 +52,6 @@ const TableList: React.FC = () => {
   const [visible, setVisible] = useState<boolean>(false);
   const actionRef = useRef<ActionType>();
   const [currentRow, setCurrentRow] = useState<TableListItem>();
-  const [selectedRowsState, setSelectedRows] = useState<TableListItem[]>([]);
 
   const handleDone = () => {
     setDone(false);
@@ -85,6 +84,10 @@ const TableList: React.FC = () => {
 
   const columns: ProColumns<TableListItem>[] = [
     {
+      title: 'ID',
+      dataIndex: 'id',
+    },
+    {
       title: '发布者',
       dataIndex: 'source',
     },
@@ -93,6 +96,7 @@ const TableList: React.FC = () => {
         <FormattedMessage id="pages.searchTable.article-content" defaultMessage="Article content" />
       ),
       dataIndex: 'content',
+      hideInSearch: true,
       valueType: 'textarea',
     },
     {
@@ -104,8 +108,8 @@ const TableList: React.FC = () => {
     {
       title: '发布连接',
       sorter: true,
+      hideInSearch: true,
       dataIndex: 'source_url',
-
     },
     {
       title: (
@@ -115,7 +119,7 @@ const TableList: React.FC = () => {
         />
       ),
       dataIndex: 'publish_at',
-      hideInForm: true,
+      hideInSearch: true,
     },
 
     {
@@ -156,6 +160,7 @@ const TableList: React.FC = () => {
         rowKey="id"
         search={{
           labelWidth: 120,
+          defaultCollapsed: false,
         }}
         toolBarRender={() => [
           <Button
@@ -171,36 +176,8 @@ const TableList: React.FC = () => {
         ]}
         request={(params, sorter, filter) => queryRule({ ...params, sorter, filter })}
         columns={columns}
-        // rowSelection={{
-        //   onChange: (_, selectedRows) => {
-        //     setSelectedRows(selectedRows);
-        //   },
-        // }}
       />
-      {selectedRowsState?.length > 0 && (
-        <FooterToolbar
-          extra={
-            <div>
-              <FormattedMessage id="pages.searchTable.chosen" defaultMessage="Chosen" />
-              <a style={{ fontWeight: 600 }}>{selectedRowsState.length}</a>
-              <FormattedMessage id="pages.searchTable.item" defaultMessage="项" />
-            </div>
-          }
-        >
-          <Button
-            onClick={async () => {
-              await handleRemove(selectedRowsState);
-              setSelectedRows([]);
-              actionRef.current?.reloadAndRest?.();
-            }}
-          >
-            <FormattedMessage
-              id="pages.searchTable.batchDeletion"
-              defaultMessage="Batch deletion"
-            />
-          </Button>
-        </FooterToolbar>
-      )}
+
       <OperationModal
         done={done}
         current={currentRow}

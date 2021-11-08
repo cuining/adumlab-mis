@@ -4,10 +4,10 @@ import type { TableListParams, TableListItem } from './data.d';
 export async function queryRule(params?: TableListParams) {
   return request('/manager/article', {
     params,
-  }).then(res => res.data);
+  }).then((res) => res.data);
 }
 
-export async function removeRule(params: { id: number[] }) {
+export async function removeRule(params: { id: number }) {
   return request(`/manager/article/${params.id}`, {
     method: 'POST',
     data: {
