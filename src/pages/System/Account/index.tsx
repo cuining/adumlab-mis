@@ -6,9 +6,10 @@ import { PageContainer } from '@ant-design/pro-layout';
 import type { ActionType } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
 import { ModalForm, ProFormText, ProFormField } from '@ant-design/pro-form';
+import OperationModal from './components/OperationModal';
 
 import type { TableListItem } from './data.d';
-import { queryRule, addRule, removeRule } from './service';
+import { queryRule, updateRule, addRule, removeRule } from './service';
 
 /**
  * @en-US Add node
@@ -71,6 +72,9 @@ const TableList: React.FC = () => {
    * @zh-CN 分布更新窗口的弹窗
    * */
 
+  const [done, setDone] = useState<boolean>(false);
+  const [visible, setVisible] = useState<boolean>(false);
+  const [currentRow, setCurrentRow] = useState<TableListItem>();
   const actionRef = useRef<ActionType>();
 
   /**
@@ -78,6 +82,7 @@ const TableList: React.FC = () => {
    * @zh-CN 国际化配置
    * */
   const intl = useIntl();
+  
 
   const columns: ProColumns<TableListItem>[] = [
     {
@@ -108,7 +113,17 @@ const TableList: React.FC = () => {
       dataIndex: 'option',
       valueType: 'option',
       render: (_, record) => (
-        <a
+        <>
+          <a
+          key="update"
+          onClick={async () => {
+            setVisible(true);
+            setCurrentRow(record);
+          }}
+        >
+          <FormattedMessage id="pages.searchTable.edit" defaultMessage="Edit" />
+        </a>
+          <a
           key="delete"
           onClick={async () => {
             await handleRemove([record]);
@@ -117,6 +132,8 @@ const TableList: React.FC = () => {
         >
           <FormattedMessage id="pages.searchTable.delete" defaultMessage="Delete" />
         </a>
+        </>
+        
       ),
     },
   ];
@@ -144,7 +161,7 @@ const TableList: React.FC = () => {
             <PlusOutlined /> <FormattedMessage id="pages.searchTable.new" defaultMessage="New" />
           </Button>,
         ]}
-        request={(params, sorter, filter) => queryRule({ ...params, sorter, filter })}
+        request={(params, sorter, filter) => ({"ret":0,"data":[{"id":1,"username":"admin","avatar":"","created_at":"2021-07-03 08:49:48","updated_at":"2021-07-03 08:49:48"},{"id":2,"username":"aadmin","avatar":"","created_at":"2021-07-10 03:37:57","updated_at":"2021-07-10 03:37:57"},{"id":3,"username":"admin2","avatar":"","created_at":"2021-07-10 03:38:43","updated_at":"2021-07-10 03:38:43"},{"id":4,"username":"admin3","avatar":"","created_at":"2021-07-10 04:46:11","updated_at":"2021-07-10 04:46:11"}],"code":1})}
         columns={columns}
       />
       <ModalForm
@@ -215,6 +232,7 @@ const TableList: React.FC = () => {
           name="password_confirmation"
         />
       </ModalForm>
+      
     </PageContainer>
   );
 };

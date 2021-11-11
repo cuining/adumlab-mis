@@ -48,8 +48,8 @@ const handleRemove = async (selectedRows: TableListItem[]) => {
 
 const TableList: React.FC = () => {
   const [done, setDone] = useState<boolean>(false);
-  const [visible, setVisible] = useState<boolean>(false);
   const actionRef = useRef<ActionType>();
+  const [visible, setVisible] = useState<boolean>(false);
   const [currentRow, setCurrentRow] = useState<TableListItem>();
 
   const handleDone = () => {

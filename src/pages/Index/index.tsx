@@ -1,9 +1,9 @@
 import { PlusOutlined } from '@ant-design/icons';
-import { Button, message, Input } from 'antd';
+import { Button, message } from 'antd';
 import React, { useState, useRef } from 'react';
 import { useIntl, FormattedMessage } from 'umi';
 import { PageContainer, FooterToolbar } from '@ant-design/pro-layout';
-import type { ProColumns, ActionType } from '@ant-design/pro-table';
+import type { ActionType } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
 import OperationModal from './components/OperationModal';
 import type { TableListItem } from './data';
@@ -89,6 +89,10 @@ const TableList: React.FC = () => {
       dataIndex: 'order_num'
     },
     {
+      title: 'ID',
+      dataIndex: 'id'
+    },
+    {
       title: "图片",
       dataIndex: 'path',
       hideInSearch: true,
@@ -101,6 +105,7 @@ const TableList: React.FC = () => {
     {
       title: '描述',
       dataIndex: 'description',
+      hideInSearch: true,
     },
     {
       title: '产品类型',
@@ -111,6 +116,7 @@ const TableList: React.FC = () => {
       title: '内部连接',
       sorter: true,
       dataIndex: 'url',
+      hideInSearch: true,
     },
     {
       title: <FormattedMessage id="pages.searchTable.titleOption" defaultMessage="Operating" />,

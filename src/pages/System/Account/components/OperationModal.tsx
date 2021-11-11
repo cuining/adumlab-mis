@@ -2,7 +2,6 @@ import type { FC} from 'react';
 import { useEffect } from 'react';
 import moment from 'moment';
 import { Modal, Result, Button, Form, DatePicker, Input, Select } from 'antd';
-import styles from '../style.less';
 
 interface OperationModalProps {
   done: boolean;
@@ -65,7 +64,6 @@ const OperationModal: FC<OperationModalProps> = (props) => {
               知道了
             </Button>
           }
-          className={styles.formResult}
         />
       );
     }
@@ -114,7 +112,6 @@ const OperationModal: FC<OperationModalProps> = (props) => {
   return (
     <Modal
       title={done ? null : `文章${current ? '编辑' : '添加'}`}
-      className={styles.standardListForm}
       width={640}
       bodyStyle={done ? { padding: '72px 0' } : { padding: '28px 0 0' }}
       destroyOnClose

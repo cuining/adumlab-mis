@@ -109,11 +109,22 @@ const OperationModal: FC<OperationModalProps> = (props) => {
             theme="snow"
             modules={{
               toolbar: [
-                [{ size: ['small', false, 'large', 'huge'] }],
-                ['bold', 'italic', 'underline'],
-                ['image'],
-              ],
+                [{ 'header': [1, 2, false] }],
+                ['bold', 'italic', 'underline','strike', 'blockquote'],
+                [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
+                ['link', 'image'],
+                [{ 'font': [] }],
+                ['clean']
+
+              ]
             }}
+            formats={[
+              'header',
+              'bold', 'italic', 'underline', 'strike', 'blockquote',
+              'list', 'bullet', 'indent',
+              'link', 'image'
+            ]}
+            
             placeholder="请输入内容，不少于10个字"
             style={{ height: 200 }}
           />

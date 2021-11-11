@@ -28,11 +28,10 @@ export async function addRule(params: TableListItem) {
 }
 
 export async function updateRule(params: TableListParams) {
-  return request('/api/rule', {
+  return request('/manager/user/password/reset', {
     method: 'POST',
     data: {
       ...params,
-      method: 'update',
     },
   });
 }
