@@ -34,7 +34,7 @@ const OperationModal: FC<OperationModalProps> = (props) => {
     if (current) {
       form.setFieldsValue({
         ...current,
-        createdAt: current.createdAt ? moment(current.createdAt).format('YYYY-MM-DD') : null,
+        createdAt: current.createdAt ? moment(current.createdAt) : null,
       });
     }
   }, [props.current]);
@@ -46,7 +46,7 @@ const OperationModal: FC<OperationModalProps> = (props) => {
 
   const handleFinish = (values: Record<string, any>) => {
     if (onSubmit) {
-      values.publish_at = new Date().toLocaleDateString('zh');
+      values.publish_at = new Date().toLocaleDateString('zh').replace(/\//g, '-');
       onSubmit(values as any);
     }
   };
