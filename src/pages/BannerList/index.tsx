@@ -85,7 +85,7 @@ const TableList: React.FC = () => {
   const columns: ProColumns<TableListItem>[] = [
     {
       title: '图片',
-      dataIndex: 'path',
+      dataIndex: 'image_url',
       hideInSearch: true,
       render: (value) => <img src={value as string} alt="" width="100" />,
     },
