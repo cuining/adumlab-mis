@@ -99,6 +99,7 @@ const TableList: React.FC = () => {
       dataIndex: 'content',
       hideInSearch: true,
       valueType: 'textarea',
+      width: 300,
     },
     {
       title: <FormattedMessage id="pages.searchTable.article-type" defaultMessage="Article type" />,
