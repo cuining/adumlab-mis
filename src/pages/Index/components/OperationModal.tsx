@@ -86,7 +86,7 @@ const OperationModal: FC<OperationModalProps> = (props) => {
         >
           <Input placeholder="请输入描述" />
         </Form.Item>
-        <Form.Item name="category" label="产品类型" initialValue={1}>
+        <Form.Item name="type" label="产品类型" initialValue={1}>
           <Radio.Group
             options={[
               { label: '人气产品', value: 1 },
