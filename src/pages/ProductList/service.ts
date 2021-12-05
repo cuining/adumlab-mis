@@ -29,7 +29,7 @@ export async function addRule(params: TableListItem) {
 
 export async function updateRule(params: TableListParams) {
   return request(`/manager/product-image/${params.id}`, {
-    method: 'POST',
+    method: 'PUT',
     data: {
       ...params,
       method: 'update',
