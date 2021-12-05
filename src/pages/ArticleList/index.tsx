@@ -85,12 +85,14 @@ const TableList: React.FC = () => {
     {
       title: 'ID',
       dataIndex: 'id',
+      width: 80,
     },
     {
       title: (
         <FormattedMessage id="pages.searchTable.article-title" defaultMessage="Article title" />
       ),
       dataIndex: 'title',
+      width: 120,
     },
     {
       title: (
@@ -98,13 +100,14 @@ const TableList: React.FC = () => {
       ),
       dataIndex: 'content',
       hideInSearch: true,
-      valueType: 'textarea',
+      render: (text: string) => <span style={{ maxWidth: 300, display: 'block' }}>{text.substr(0, 300)}</span>,
       width: 300,
     },
     {
       title: <FormattedMessage id="pages.searchTable.article-type" defaultMessage="Article type" />,
       dataIndex: 'type',
       valueEnum: { 1: '新闻', 2: '通知' },
+      width: 80,
     },
     {
       title: (
@@ -115,6 +118,7 @@ const TableList: React.FC = () => {
       ),
       dataIndex: 'publish_at',
       hideInSearch: true,
+      width: 120,
     },
     {
       title: (
