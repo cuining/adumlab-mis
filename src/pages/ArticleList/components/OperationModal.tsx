@@ -34,7 +34,7 @@ const OperationModal: FC<OperationModalProps> = (props) => {
     if (current) {
       form.setFieldsValue({
         ...current,
-        createdAt: current.createdAt ? moment(current.createdAt) : null,
+        createdAt: current.createdAt ? moment(current.createdAt).format('YYYY-MM-DD') : null,
       });
     }
   }, [props.current]);
@@ -124,7 +124,7 @@ const OperationModal: FC<OperationModalProps> = (props) => {
               'list', 'bullet', 'indent',
               'link', 'image'
             ]}
-            
+
             placeholder="请输入内容，不少于10个字"
             style={{ height: 200 }}
           />
