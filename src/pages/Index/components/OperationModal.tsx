@@ -117,7 +117,7 @@ const OperationModal: FC<OperationModalProps> = (props) => {
             <Button icon={<UploadOutlined />}>上传图片</Button>
           </Upload>
         </Form.Item>
-        <Form.Item label=" ">202*108，图片最大1Mb</Form.Item>
+        <Form.Item label=" ">260*235，图片最大1Mb</Form.Item>
       </Form>
     );
   };
